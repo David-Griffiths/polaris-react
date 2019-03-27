@@ -69,17 +69,10 @@ export interface Props {
   onSortChange?(selected: string, id: string): void;
   /** Callback when selection is changed */
   onSelectionChange?(selectedItems: SelectedItems): void;
-  onSelectionChange?(
-    selected: boolean,
-    id: string,
-    index: number,
-    shiftKey: boolean,
-  ): void;
   handleMultiSelectionChange?(
     lastSelected: number,
     currentlySelected: number,
-    items: Items,
-  ): number[] | string[];
+  ): string[];
   /** Function to render each list item	 */
   renderItem(item: any, id: string): React.ReactNode;
   /** Function to customize the unique ID for each item */
@@ -663,7 +656,7 @@ export class ResourceList extends React.Component<CombinedProps, State> {
       this.setState({lastSelected: sortOrder});
     }
 
-    let selectedIds: number[] | string[] = [id];
+    let selectedIds: string[] = [id];
 
     if (
       shiftKey &&
@@ -671,7 +664,7 @@ export class ResourceList extends React.Component<CombinedProps, State> {
       sortOrder !== undefined &&
       handleMultiSelectionChange
     ) {
-      selectedIds = handleMultiSelectionChange(lastSelected, sortOrder, items);
+      selectedIds = handleMultiSelectionChange(lastSelected, sortOrder);
     }
     newlySelectedItems = [...new Set([...newlySelectedItems, ...selectedIds])];
 

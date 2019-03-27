@@ -15,6 +15,6 @@ export interface ResourceListContext {
     selected: boolean,
     id: string,
     sortNumber: number | undefined,
-    shiftKey: boolean | undefined,
+    shiftKey: boolean,
   ): void;
 }
