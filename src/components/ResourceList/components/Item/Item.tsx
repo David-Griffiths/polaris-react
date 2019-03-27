@@ -300,7 +300,7 @@ export class Item extends React.PureComponent<CombinedProps, State> {
     this.handleSelection(!this.isSelected(), event.nativeEvent.shiftKey);
   };
 
-  private handleSelection = (value: boolean, shiftKey?: boolean) => {
+  private handleSelection = (value: boolean, shiftKey: boolean) => {
     const {
       id,
       sortOrder,
