@@ -34,7 +34,7 @@ export interface BaseProps {
   media?: React.ReactElement<AvatarProps | ThumbnailProps>;
   persistActions?: boolean;
   shortcutActions?: DisableableAction[];
-  sortOrder: number | undefined;
+  sortOrder?: number;
   children?: React.ReactNode;
 }
 

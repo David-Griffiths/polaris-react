@@ -229,6 +229,8 @@ describe('<Item />', () => {
       expect(mockSelectableContext.onSelectionChange).toHaveBeenCalledWith(
         true,
         itemId,
+        undefined,
+        undefined,
       );
     });
   });
@@ -263,6 +265,8 @@ describe('<Item />', () => {
       expect(mockSelectModeContext.onSelectionChange).toHaveBeenCalledWith(
         true,
         itemId,
+        undefined,
+        undefined,
       );
     });
 
