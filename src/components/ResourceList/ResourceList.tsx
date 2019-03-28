@@ -77,6 +77,7 @@ export interface Props {
   renderItem(item: any, id: string): React.ReactNode;
   /** Function to customize the unique ID for each item */
   idForItem?(item: any, index: number): string;
+  resolveItemId?(item: any): string;
 }
 
 export type CombinedProps = Props & WithAppProviderProps;
@@ -628,6 +629,16 @@ export class ResourceList extends React.Component<CombinedProps, State> {
     );
   };
 
+  private handleMultiSelectionChange = (
+    lastSelected: number,
+    currentSelected: number,
+    resolveItemId: (items: any) => string,
+  ) => {
+    const min = Math.min(lastSelected, currentSelected);
+    const max = Math.max(lastSelected, currentSelected);
+    return this.props.items.slice(min, max + 1).map(resolveItemId);
+  };
+
   private handleSelectionChange = (
     selected: boolean,
     id: string,
@@ -639,7 +650,7 @@ export class ResourceList extends React.Component<CombinedProps, State> {
       selectedItems,
       items,
       idForItem = defaultIdForItem,
-      handleMultiSelectionChange,
+      resolveItemId,
     } = this.props;
     const {lastSelected} = this.state;
 
@@ -662,9 +673,13 @@ export class ResourceList extends React.Component<CombinedProps, State> {
       shiftKey &&
       lastSelected != null &&
       sortOrder !== undefined &&
-      handleMultiSelectionChange
+      resolveItemId
     ) {
-      selectedIds = handleMultiSelectionChange(lastSelected, sortOrder);
+      selectedIds = this.handleMultiSelectionChange(
+        lastSelected,
+        sortOrder,
+        resolveItemId,
+      );
     }
     newlySelectedItems = [...new Set([...newlySelectedItems, ...selectedIds])];
 
