@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {classNames} from '@shopify/react-utilities';
-import {ExternalSmallMinor} from '@shopify/polaris-icons';
+import {ChevronLeftMinor} from '@shopify/polaris-icons';
 
 import {withAppProvider, WithAppProviderProps} from '../AppProvider';
 import UnstyledLink from '../UnstyledLink';
@@ -40,8 +40,10 @@ function Link({
   let childrenMarkup = children;
 
   if (external && typeof children === 'string') {
-    const lastWord = children.slice(children.lastIndexOf(' ') + 1);
-    const rest = children.slice(0, children.lastIndexOf(' ') + 1);
+    const lastSpace = children.lastIndexOf(' ');
+    const multiWord = lastSpace !== -1;
+    const lastWord = multiWord ? children.slice(lastSpace + 1) : null;
+    const rest = multiWord ? children.slice(0, lastSpace + 1) : children;
     const iconLabel = polaris.intl.translate(
       'Polaris.Common.newWindowAccessibilityHint',
     );
@@ -51,7 +53,7 @@ function Link({
         {rest}
         <span className={styles.IconLockup}>
           {lastWord}
-          <Icon accessibilityLabel={iconLabel} source={ExternalSmallMinor} />
+          <Icon accessibilityLabel={iconLabel} source={ChevronLeftMinor} />
         </span>
       </React.Fragment>
     );

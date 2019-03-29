@@ -19,10 +19,12 @@
 }
 
 .IconLockup {
-  display: inline-flex;
-  align-items: center;
-
   @include recolor-icon(currentColor);
+  display: inline-flex;
+
+  &::before {
+    content: '\200b'; // Zero-width space to match height of surrounding text
+  }
 }
 
 .monochrome {
