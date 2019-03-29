@@ -74,7 +74,7 @@ export interface Props {
     currentlySelected: number,
   ): string[];
   /** Function to render each list item	 */
-  renderItem(item: any, id: string): React.ReactNode;
+  renderItem(item: any, id: string, index: number): React.ReactNode;
   /** Function to customize the unique ID for each item */
   idForItem?(item: any, index: number): string;
   resolveItemId?(item: any): string;
@@ -624,7 +624,7 @@ export class ResourceList extends React.Component<CombinedProps, State> {
 
     return (
       <li key={id} className={styles.ItemWrapper}>
-        {renderItem(item, id)}
+        {renderItem(item, id, index)}
       </li>
     );
   };
